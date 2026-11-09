@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Machine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@200;300;400;500;600&family=Oswald:wght@600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="film-vignette"></div>
+
+  <!-- Stage 1: Landing Screen -->
+  <section id="stage-landing" class="stage active">
+    <div class="landing-content">
+      <p class="eyebrow">A TRIBUTE PRESENTATION</p>
+      <h1 class="title">TIME MACHINE</h1>
+      <button id="start-btn" type="button" aria-label="Start Time Machine">START</button>
+    </div>
+  </section>
+
+  <!-- Stage 2, 3 & 3.5: Audio Waveform, Fast Anticlockwise Clock & Pitch-Black Gold HUD -->
+  <section id="stage-experience" class="stage">
+    <canvas id="wave-canvas"></canvas>
+
+    <!-- Fast Anticlockwise Time-Travel Clock (03:12.0 to 03:15.5) -->
+    <div id="countdown-overlay">
+      <div class="chrono-dial">
+        <div class="chrono-ambient-glow"></div>
+
+        <svg class="chrono-svg chrono-outer-svg" viewBox="0 0 500 500">
+          <circle cx="250" cy="250" r="236" class="svg-ring-thin" />
+          <circle cx="250" cy="250" r="224" class="svg-ring-dashed" />
+        </svg>
+
+        <div class="rotating-clock-ring" id="clock-ring"></div>
+
+        <svg class="chrono-svg chrono-inner-svg" viewBox="0 0 500 500">
+          <circle cx="250" cy="250" r="152" class="svg-ring-arc" />
+          <circle cx="250" cy="250" r="138" class="svg-ring-dotted" />
+        </svg>
+
+        <div class="clock-hands-wrapper">
+          <div class="clock-hand-hour"></div>
+          <div class="clock-hand-minute"></div>
+          <div class="clock-center-cap"></div>
+        </div>
+
+        <div class="year-wrapper">
+          <span id="year-display">2026</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 3.5: Pitch-Black & Gold Theme-Matched Search HUD (03:15.5 to 03:20.0) -->
+    <div id="search-hud-overlay" class="hud-screen">
+      <div class="hud-card" id="search-hud-card">
+        <span class="hud-corner tl"></span>
+        <span class="hud-corner tr"></span>
+        <span class="hud-corner bl"></span>
+        <span class="hud-corner br"></span>
+
+        <div class="hud-card-header">
+          <span>▸ TEMPORAL ARCHIVE SEARCH</span>
+          <span>TM / 2010</span>
+        </div>
+
+        <div class="hud-card-body">
+          <div class="hud-globe-bezel">
+            <div class="hud-globe" id="search-globe">
+              <svg viewBox="0 0 200 200" class="globe-svg">
+                <circle cx="100" cy="100" r="88" class="globe-outline" />
+                <ellipse cx="100" cy="100" rx="88" ry="32" class="globe-lat" />
+                <ellipse cx="100" cy="100" rx="88" ry="66" class="globe-lat" />
+                <ellipse cx="100" cy="100" rx="34" ry="88" class="globe-lon" />
+                <ellipse cx="100" cy="100" rx="68" ry="88" class="globe-lon" />
+                <line x1="12" y1="100" x2="188" y2="100" class="globe-axis" />
+                <line x1="100" y1="12" x2="100" y2="188" class="globe-axis" />
+                <circle cx="132" cy="76" r="3.5" class="globe-node" />
+                <circle cx="74" cy="118" r="2.5" class="globe-node" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="hud-text-col" id="search-text-col">
+            <div class="hud-status-line" id="search-status-tag">
+              <span class="status-indicator">((•))</span> SCANNING TIMELINE
+            </div>
+            <h2 class="hud-main-heading" id="search-main-heading">Searching Complete.</h2>
+            <p class="hud-sub-desc" id="search-sub-desc">Locking onto 2010–2026 memory coordinates...</p>
+            <div class="hud-match-badge hidden-badge" id="search-match-badge">
+              ARCHIVE &nbsp;•&nbsp; MATCH FOUND
+            </div>
+          </div>
+        </div>
+
+        <div class="hud-card-footer">
+          <span>SUBJECT : DR. TANOY KUMAR DEY</span>
+          <div class="hud-mini-wave">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <span id="search-footer-status">SCANNING</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stage 4: 16:9 Fullscreen Flashback, Connection Lost & Marvel-Style Credits -->
+  <section id="stage-flashback" class="stage">
+    <div class="slide-frame">
+      <img id="slide-a" class="slide-img"
+        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Memory Slide A">
+      <img id="slide-b" class="slide-img"
+        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Memory Slide B">
+    </div>
+
+    <!-- Pitch-Black Theme-Blended Connection Lost HUD Screen -->
+    <div id="connection-lost-overlay" class="hud-screen">
+      <div class="hud-card anomaly-card-theme" id="anomaly-hud-card">
+        <span class="hud-corner tl"></span>
+        <span class="hud-corner tr"></span>
+        <span class="hud-corner bl"></span>
+        <span class="hud-corner br"></span>
+
+        <div class="hud-card-header">
+          <span>▸ TEMPORAL ARCHIVE STREAM</span>
+          <span>SIGNAL / 000</span>
+        </div>
+
+        <div class="hud-card-body">
+          <div class="hud-globe-bezel anomaly-bezel">
+            <div class="hud-globe anomaly-globe" id="anomaly-globe">
+              <svg viewBox="0 0 200 200" class="globe-svg">
+                <circle cx="100" cy="100" r="88" class="globe-outline" />
+                <ellipse cx="100" cy="100" rx="88" ry="32" class="globe-lat" />
+                <ellipse cx="100" cy="100" rx="88" ry="66" class="globe-lat" />
+                <ellipse cx="100" cy="100" rx="34" ry="88" class="globe-lon" />
+                <ellipse cx="100" cy="100" rx="68" ry="88" class="globe-lon" />
+                <line x1="12" y1="100" x2="188" y2="100" class="globe-axis" />
+                <line x1="100" y1="12" x2="100" y2="188" class="globe-axis" />
+                <circle cx="128" cy="82" r="3.5" class="globe-node" />
+                <circle cx="68" cy="124" r="2.5" class="globe-node" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="hud-text-col">
+            <div class="hud-status-line status-danger" id="anomaly-status-tag">⚠ TEMPORAL LINK SEVERED</div>
+            <h2 class="hud-main-heading" id="anomaly-main-heading">Connection lost.</h2>
+            <p class="hud-sub-desc" id="anomaly-sub-desc">2010–2026 memory playback complete. Returning to present...
+            </p>
+            <div class="hud-match-badge anomaly-badge">
+              STREAM ENDED &nbsp;•&nbsp; ARCHIVE SEALED
+            </div>
+          </div>
+        </div>
+
+        <div class="hud-card-footer">
+          <span>SUBJECT : DR. TANOY KUMAR DEY</span>
+          <div class="hud-mini-wave anomaly-wave">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <span id="anomaly-footer-status">OFFLINE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clean Marvel-Style Cinematic Credit Scene -->
+    <div id="credits-overlay">
+      <div class="marvel-cosmos-bg">
+        <div class="cosmos-nebula"></div>
+        <div class="cosmos-ring ring-1"></div>
+        <div class="cosmos-ring ring-2"></div>
+      </div>
+
+      <div class="credits-center-box">
+        <!-- Card 1: Clean Physics-Man Title Card -->
+        <div class="credit-card active-card" id="credit-card-1">
+          <p class="marvel-prefix" id="marvel-prefix-text">TIME MACHINE OF</p>
+          <h2 class="marvel-giant-title">PHYSICS-MAN</h2>
+          <p class="marvel-sub-person">(Dr. Tanoy Kumar Dey)</p>
+        </div>
+
+        <!-- Card 2: Scripting & Voice Over - Anwesha Ganguly -->
+        <div class="credit-card" id="credit-card-2">
+          <span class="credit-role-tag">SCRIPTING &amp; VOICE OVER</span>
+          <div class="credit-person">
+            <div class="avatar-halo">
+              <img src="assets/images/Anwesha.jpg" alt="Anwesha Ganguly" class="credit-avatar">
+            </div>
+            <span class="credit-name">Anwesha Ganguly</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Build and Executed By - Subhodeep Rajak -->
+        <div class="credit-card" id="credit-card-3">
+          <span class="credit-role-tag">BUILD AND EXECUTED BY</span>
+          <div class="credit-person">
+            <div class="avatar-halo">
+              <img src="assets/images/Subhodeep.jpg" alt="Subhodeep Rajak" class="credit-avatar"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="avatar-monogram" style="display: none;">SR</div>
+            </div>
+            <span class="credit-name">Subhodeep Rajak</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Archival Image Research - Dibyanil Awon & Manaska Barui -->
+        <div class="credit-card" id="credit-card-4">
+          <span class="credit-role-tag">ARCHIVAL IMAGE RESEARCH</span>
+          <div class="credit-team-row">
+            <div class="credit-person">
+              <div class="avatar-halo">
+                <img src="assets/images/Dibyanil.jpg" alt="Dibyanil Awon" class="credit-avatar">
+              </div>
+              <span class="credit-name">Dibyanil Awon</span>
+            </div>
+            <div class="credit-person">
+              <div class="avatar-halo">
+                <img src="assets/images/Manaska.jpg" alt="Manaska Barui" class="credit-avatar">
+              </div>
+              <span class="credit-name">Manaska Barui</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5: Special Thanks & Support - Ankit Nath & Sumit Mondal -->
+        <div class="credit-card" id="credit-card-5">
+          <span class="credit-role-tag">SPECIAL THANKS &amp; SUPPORT</span>
+          <div class="credit-team-row">
+            <div class="credit-person">
+              <div class="avatar-halo">
+                <img src="assets/images/Ankit.jpg" alt="Ankit Nath" class="credit-avatar">
+              </div>
+              <span class="credit-name">Ankit Nath</span>
+            </div>
+            <div class="credit-person">
+              <div class="avatar-halo">
+                <img src="assets/images/Sumit.jpg" alt="Sumit Mondal" class="credit-avatar">
+              </div>
+              <span class="credit-name">Sumit Mondal</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6: Final Tribute -->
+        <div class="credit-card" id="credit-card-6">
+          <p class="credits-footer">HAPPY TEACHERS' DAY</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stage 5: Shutdown Sequence (Stops Completely After 10 Seconds) -->
+  <section id="stage-shutdown" class="stage">
+    <div id="poweroff-modal" class="shutdown-panel">
+      <div id="shutdown-inner" class="shutdown-inner">
+        <div class="os-spinner"></div>
+        <p class="shutting-down-text">Shutting Down...</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
