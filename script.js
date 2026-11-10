@@ -30,6 +30,7 @@
   const anomalyHudCard = document.getElementById("anomaly-hud-card");
   const creditsOverlay = document.getElementById("credits-overlay");
   const marvelPrefixText = document.getElementById("marvel-prefix-text");
+  const specialThanksTrack = document.getElementById("special-thanks-track");
 
   // Stage 5 Shutdown Elements
   const poweroffModal = document.getElementById("poweroff-modal");
@@ -317,7 +318,6 @@
     try {
       const now = audioCtx.currentTime;
 
-      // 1. Sub-bass power-down drop
       const subOsc = audioCtx.createOscillator();
       const subGain = audioCtx.createGain();
       subOsc.type = "sine";
@@ -330,7 +330,6 @@
       subOsc.start(now);
       subOsc.stop(now + 0.92);
 
-      // 2. Telemetry disconnect triple-beep
       [640, 480, 320].forEach((freq, idx) => {
         const beepOsc = audioCtx.createOscillator();
         const beepGain = audioCtx.createGain();
@@ -381,7 +380,6 @@
       }
     }, stepMs);
 
-    // At +3.5s (03:15.5): Morph from Clock into "Searching Complete."
     addManagedTimeout(() => {
       yearDisplay.textContent = targetYear;
       countdownOverlay.classList.add("clock-exit");
@@ -409,7 +407,6 @@
 
     searchHudOverlay.classList.add("hud-visible");
 
-    // Smooth Cross-Dissolve into "Dr. Tanoy Kumar Dey Found."
     addManagedTimeout(() => {
       searchTextCol.classList.add("text-morph-out");
 
@@ -427,7 +424,6 @@
     }, searchingMs);
   }
 
-  // Golden Portal Warp Zoom into Flashback Photos
   function transitionHudToFlashback() {
     if (flashbackStarted) return;
     flashbackStarted = true;
@@ -563,7 +559,7 @@
     }, 3200);
   }
 
-  // Stage 4.8: Clean Marvel-Style Credits with credits.mp3 + Subhodeep Rajak
+  // Stage 4.8: Spotlight Cards 1-4 -> Long Scrolling Special Credits (Card 5) -> Final Tribute (Card 6)
   function startMarvelCreditsSequence() {
     clearAllManagedTimers();
 
@@ -584,29 +580,64 @@
 
     creditsOverlay.classList.add("credits-visible");
 
-    const cards = [
-      document.getElementById("credit-card-1"),
-      document.getElementById("credit-card-2"),
-      document.getElementById("credit-card-3"),
-      document.getElementById("credit-card-4"),
-      document.getElementById("credit-card-5"),
-      document.getElementById("credit-card-6")
-    ];
+    const card1 = document.getElementById("credit-card-1");
+    const card2 = document.getElementById("credit-card-2");
+    const card3 = document.getElementById("credit-card-3");
+    const card4 = document.getElementById("credit-card-4");
+    const card5 = document.getElementById("credit-card-5");
+    const card6 = document.getElementById("credit-card-6");
+    const allCards = [card1, card2, card3, card4, card5, card6];
 
-    const cardDuration = CONFIG.creditCardDurationMs || 3200;
-    const totalCreditsDuration = cards.length * cardDuration;
+    const showOnlyCard = (activeCard) => {
+      allCards.forEach((c) => c.classList.toggle("active-card", c === activeCard));
+    };
 
-    let currentCardIdx = 0;
-    cards.forEach((c, idx) => c.classList.toggle("active-card", idx === 0));
+    const cardDuration = CONFIG.creditCardDurationMs || 3400;
+    const scrollDuration = CONFIG.specialThanksScrollDurationMs || 16000;
+    const finalCardDuration = CONFIG.finalTributeDurationMs || 4200;
 
-    addManagedInterval(() => {
-      if (currentCardIdx < cards.length - 1) {
-        cards[currentCardIdx].classList.remove("active-card");
-        currentCardIdx++;
-        cards[currentCardIdx].classList.add("active-card");
-      }
+    if (specialThanksTrack) {
+      specialThanksTrack.classList.remove("rolling-active");
+      specialThanksTrack.style.setProperty("--roll-duration", `${scrollDuration}ms`);
+    }
+
+    // 1. Card 1: Physics-Man Title
+    showOnlyCard(card1);
+
+    // 2. Card 2: Anwesha Ganguly
+    addManagedTimeout(() => {
+      showOnlyCard(card2);
     }, cardDuration);
 
+    // 3. Card 3: Subhodeep Rajak
+    addManagedTimeout(() => {
+      showOnlyCard(card3);
+    }, cardDuration * 2);
+
+    // 4. Card 4: Dibyanil Awon & Manaska Barui
+    addManagedTimeout(() => {
+      showOnlyCard(card4);
+    }, cardDuration * 3);
+
+    // 5. Card 5: Long Cinema Scrolling Roll (64 Alphabetical Names + Class 12 Batch)
+    const scrollStartMs = cardDuration * 4;
+    addManagedTimeout(() => {
+      showOnlyCard(card5);
+      if (specialThanksTrack) {
+        void specialThanksTrack.offsetWidth;
+        specialThanksTrack.classList.add("rolling-active");
+      }
+    }, scrollStartMs);
+
+    // 6. Card 6: Happy Teachers' Day Finale
+    const finalCardStartMs = scrollStartMs + scrollDuration;
+    addManagedTimeout(() => {
+      showOnlyCard(card6);
+    }, finalCardStartMs);
+
+    const totalCreditsDuration = finalCardStartMs + finalCardDuration;
+
+    // Fade out credits music smoothly during the final 3.2 seconds
     addManagedTimeout(() => {
       addManagedInterval(() => {
         if (activeCreditTrack.volume > 0.02) {
@@ -616,7 +647,7 @@
           activeCreditTrack.pause();
         }
       }, 120);
-    }, totalCreditsDuration - 3000);
+    }, totalCreditsDuration - 3200);
 
     addManagedTimeout(() => {
       runFinalShutdownSequence();

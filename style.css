@@ -327,7 +327,6 @@ body {
 
 /* ==========================================
    PITCH-BLACK & GOLD THEME-MATCHED HUD SCREENS
-   ("Searching Complete / Found" & "Connection Lost")
    ========================================== */
 .hud-screen {
   position: fixed;
@@ -372,7 +371,6 @@ body {
   box-shadow: 0 0 70px rgba(239, 68, 68, 0.06) inset;
 }
 
-/* NEW Ending Animation 1: Golden Portal Warp Zoom (For "Dr. Tanoy Kumar Dey Found") */
 .hud-card.portal-warp-exit {
   transform: scale(1.28);
   filter: brightness(1.85) blur(14px);
@@ -380,7 +378,6 @@ body {
   opacity: 0;
 }
 
-/* NEW Ending Animation 2: Signal De-Materialization & Power-Down Dissolve (For "Connection Lost") */
 .hud-card.signal-dissolve-exit {
   animation: signal-powerdown 0.85s cubic-bezier(0.36, 0, 0.66, -0.56) forwards;
 }
@@ -726,7 +723,7 @@ body {
 }
 
 /* ==========================================
-   MARVEL-STYLE CREDITS SCENE
+   MARVEL-STYLE CREDITS + CINEMA SCROLL ROLL
    ========================================== */
 #credits-overlay {
   position: fixed;
@@ -737,7 +734,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 32px 24px;
+  padding: 24px;
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
@@ -786,8 +783,8 @@ body {
 .credits-center-box {
   position: relative;
   z-index: 5;
-  width: min(94vw, 960px);
-  height: 420px;
+  width: min(96vw, 1060px);
+  height: 86vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -914,6 +911,140 @@ body {
   letter-spacing: 0.16em;
   color: #ffffff;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.85);
+}
+
+/* ==========================================
+   CARD 5: HOLLYWOOD MULTI-COLUMN SCROLLING CREDITS
+   ========================================== */
+.cinema-roll-card {
+  transform: scale(1) !important;
+  filter: none !important;
+}
+
+.cinema-roll-viewport {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  -webkit-mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      #000000 14%,
+      #000000 86%,
+      transparent 100%);
+  mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      #000000 14%,
+      #000000 86%,
+      transparent 100%);
+}
+
+.cinema-roll-track {
+  width: min(92vw, 960px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.6rem;
+  padding-top: 82vh;
+  padding-bottom: 85vh;
+  transform: translateY(0);
+  will-change: transform;
+}
+
+.cinema-roll-track.rolling-active {
+  animation: cinema-crawl-up var(--roll-duration, 16s) linear forwards;
+}
+
+@keyframes cinema-crawl-up {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.roll-header-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.roll-gold-rule {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.rule-line {
+  width: 140px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.65), transparent);
+}
+
+.rule-diamond {
+  font-size: 0.65rem;
+  color: #f5c518;
+}
+
+.cinema-names-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 1.25rem;
+  column-gap: 1.8rem;
+  text-align: center;
+  padding: 0.5rem 1rem;
+}
+
+.cinema-names-grid span {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.88rem, 1.45vw, 1.14rem);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: rgba(248, 250, 252, 0.92);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .cinema-names-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.roll-batch-block {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.95rem;
+}
+
+.roll-batch-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.46em;
+  text-indent: 0.46em;
+  color: rgba(245, 197, 24, 0.82);
+  margin-top: 0.4rem;
+}
+
+.roll-batch-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.35rem, 2.6vw, 2.05rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  background: linear-gradient(180deg, #ffffff 0%, #f3e5ab 60%, #d4af37 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 24px rgba(245, 197, 24, 0.35));
 }
 
 .credits-footer {

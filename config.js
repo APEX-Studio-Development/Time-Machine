@@ -18,8 +18,12 @@ const CONFIG = {
   presentYear: 2026,
   targetPastYear: 2010,
   creditTitlePrefix: "TIME MACHINE OF",
-  // Each of the 6 credit cards displays for 3.2 seconds (19.2 seconds total)
-  creditCardDurationMs: 3200,
+  // Spotlight cards 1 to 4 duration (3.4s each)
+  creditCardDurationMs: 3400,
+  // Long scrolling Special Thanks cinema roll duration (16s)
+  specialThanksScrollDurationMs: 16000,
+  // Final "Happy Teachers' Day" card duration (4.2s)
+  finalTributeDurationMs: 4200,
   // Shutdown spinner runs for 10 seconds then powers off completely
   shutdownDurationMs: 10000
 };
